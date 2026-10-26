@@ -15,27 +15,27 @@ const links = [
 function LanguageSwitch() {
   const { lang, setLang, t } = useLanguage();
 
-  return (
-    <div className="nb-lang" role="group" aria-label={t("nav.language")}>
-      <Globe size={16} className="nb-lang-icon" aria-hidden="true" />
-      <button
-        type="button"
-        className={`nb-lang-btn ${lang === "id" ? "is-active" : ""}`}
-        onClick={() => setLang("id")}
-        aria-pressed={lang === "id"}
-      >
-        ID
-      </button>
-      <button
-        type="button"
-        className={`nb-lang-btn ${lang === "en" ? "is-active" : ""}`}
-        onClick={() => setLang("en")}
-        aria-pressed={lang === "en"}
-      >
-        EN
-      </button>
-    </div>
-  );
+  // return (
+  //   <div className="nb-lang" role="group" aria-label={t("nav.language")}>
+  //     <Globe size={16} className="nb-lang-icon" aria-hidden="true" />
+  //     <button
+  //       type="button"
+  //       className={`nb-lang-btn ${lang === "id" ? "is-active" : ""}`}
+  //       onClick={() => setLang("id")}
+  //       aria-pressed={lang === "id"}
+  //     >
+        
+  //     </button>
+  //     <button
+  //       type="button"
+  //       className={`nb-lang-btn ${lang === "en" ? "is-active" : ""}`}
+  //       onClick={() => setLang("en")}
+  //       aria-pressed={lang === "en"}
+  //     >
+        
+  //     </button>
+  //   </div>
+  // );
 }
 
 export default function Navbar() {
