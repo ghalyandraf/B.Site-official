@@ -1,0 +1,261 @@
+/* =========================================================
+   Animasi halaman Contact
+   ========================================================= */
+
+/* ---------- Hero: teks masuk bergantian ---------- */
+.ct-anim {
+  animation: ctIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 120ms + 100ms);
+}
+
+@keyframes ctIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gradient di judul bergerak pelan */
+.ct-hero .text-gradient {
+  background-image: linear-gradient(100deg, #155eef, #5b9cff, #155eef);
+  background-size: 200% auto;
+  animation: ctShimmer 5s linear infinite;
+}
+
+@keyframes ctShimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Cahaya lembut di background hero */
+.ct-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.ct-hero::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  width: 360px;
+  height: 360px;
+  margin-left: -180px;
+  border-radius: 50%;
+  background: rgba(91, 156, 255, 0.18);
+  filter: blur(60px);
+  pointer-events: none;
+  animation: ctGlow 8s ease-in-out infinite;
+}
+
+.ct-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes ctGlow {
+  0%,
+  100% {
+    transform: translate(-60px, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(60px, 30px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ---------- Reveal saat scroll ---------- */
+.ct-reveal {
+  opacity: 0;
+}
+
+.ct-reveal.is-visible {
+  opacity: 1;
+  animation: ctRevealUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.ct-reveal-left.is-visible {
+  animation-name: ctRevealLeft;
+}
+
+.ct-reveal-right.is-visible {
+  animation-name: ctRevealRight;
+}
+
+@keyframes ctRevealUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ctRevealLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ctRevealRight {
+  from {
+    opacity: 0;
+    transform: translateX(44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------- Panel info ---------- */
+.contact-info {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Lingkaran cahaya bergerak di pojok panel */
+.contact-info::after {
+  content: "";
+  position: absolute;
+  right: -80px;
+  bottom: -80px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+  animation: ctRing 7s ease-in-out infinite;
+}
+
+@keyframes ctRing {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+.contact-info > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Kartu kontak: geser sedikit saat hover */
+.ct-link {
+  transition: transform 0.25s ease, background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+a.ct-link:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.contact-info-static.ct-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ct-link > svg {
+  transition: transform 0.25s ease;
+}
+
+a.ct-link:hover > svg {
+  transform: translate(3px, -3px);
+}
+
+/* Ikon WhatsApp berdenyut */
+.ct-wa-icon {
+  animation: ctWa 2.6s ease-in-out infinite;
+}
+
+@keyframes ctWa {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 9px rgba(255, 255, 255, 0);
+  }
+}
+
+/* Ikon centang di note berdenyut halus */
+.contact-mini-note svg {
+  animation: ctTick 2.8s ease-in-out infinite;
+}
+
+@keyframes ctTick {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+/* ---------- Kartu form ---------- */
+.contact-form-card {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-form-card:focus-within {
+  border-color: #b9d0fa;
+  box-shadow: 0 24px 60px rgba(26, 62, 117, 0.12);
+}
+
+/* Label ikut berwarna biru saat field difokus */
+.form-field {
+  transition: color 0.2s ease;
+}
+
+.form-field:focus-within {
+  color: var(--blue);
+}
+
+/* Tombol kirim: pesawat terbang saat hover */
+.ct-submit svg {
+  transition: transform 0.3s ease;
+}
+
+.ct-submit:hover svg {
+  transform: translate(4px, -4px) rotate(8deg);
+}
+
+.ct-submit:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ---------- Hormati preferensi reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ct-anim,
+  .ct-reveal,
+  .ct-reveal.is-visible,
+  .ct-hero::before,
+  .ct-hero .text-gradient,
+  .contact-info::after,
+  .ct-wa-icon,
+  .contact-mini-note svg {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}

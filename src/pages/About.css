@@ -1,0 +1,255 @@
+.ab-anim {
+  animation: abIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 120ms + 100ms);
+}
+
+@keyframes abIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gradient di judul bergerak pelan */
+.ab-hero .text-gradient {
+  background-image: linear-gradient(100deg, #155eef, #5b9cff, #155eef);
+  background-size: 200% auto;
+  animation: abShimmer 5s linear infinite;
+}
+
+@keyframes abShimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Cahaya lembut di background hero */
+.ab-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.ab-hero::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: rgba(91, 156, 255, 0.18);
+  filter: blur(60px);
+  pointer-events: none;
+  animation: abGlow 8s ease-in-out infinite;
+}
+
+.ab-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes abGlow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-40px, 30px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ---------- Reveal saat scroll ---------- */
+.ab-reveal {
+  opacity: 0;
+}
+
+.ab-reveal.is-visible {
+  opacity: 1;
+  animation: abRevealUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.ab-reveal-left.is-visible {
+  animation-name: abRevealLeft;
+}
+
+.ab-reveal-right.is-visible {
+  animation-name: abRevealRight;
+}
+
+@keyframes abRevealUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes abRevealLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes abRevealRight {
+  from {
+    opacity: 0;
+    transform: translateX(44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------- Kartu visual "B." ---------- */
+.about-art-main {
+  animation: abCardFloat 7s ease-in-out infinite;
+}
+
+@keyframes abCardFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Lingkaran di pojok kartu berdenyut pelan */
+.about-art-main::after {
+  animation: abRings 6s ease-in-out infinite;
+}
+
+@keyframes abRings {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.7;
+  }
+}
+
+/* Logo "B." sedikit bergoyang */
+.about-art-logo {
+  animation: abLogo 5s ease-in-out infinite;
+}
+
+@keyframes abLogo {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+}
+
+/* Garis kecil di kartu */
+.about-art-line {
+  animation: abLine 3s ease-in-out infinite;
+}
+
+@keyframes abLine {
+  0%,
+  100% {
+    width: 58px;
+  }
+  50% {
+    width: 96px;
+  }
+}
+
+/* Badge melayang dengan ritme beda */
+.about-art-badge {
+  animation: abBadge 5s ease-in-out infinite;
+}
+
+@keyframes abBadge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.about-art-badge svg {
+  animation: abBulb 2.6s ease-in-out infinite;
+}
+
+@keyframes abBulb {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(21, 94, 239, 0));
+  }
+  50% {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 6px rgba(21, 94, 239, 0.5));
+  }
+}
+
+/* ---------- Interaksi hover ---------- */
+.about-copy .button svg {
+  transition: transform 0.25s ease;
+}
+
+.about-copy .button:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.value-card .service-icon {
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.value-card:hover .service-icon {
+  transform: rotate(-8deg) scale(1.1);
+  color: #fff;
+  background: var(--blue);
+}
+
+.value-card .service-number {
+  transition: color 0.3s ease;
+}
+
+.value-card:hover .service-number {
+  color: var(--blue);
+}
+
+/* ---------- Hormati preferensi reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ab-anim,
+  .ab-reveal,
+  .ab-reveal.is-visible,
+  .ab-hero::before,
+  .ab-hero .text-gradient,
+  .about-art-main,
+  .about-art-main::after,
+  .about-art-logo,
+  .about-art-line,
+  .about-art-badge,
+  .about-art-badge svg {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}

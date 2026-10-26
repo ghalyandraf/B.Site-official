@@ -1,0 +1,162 @@
+/* =========================================================
+   Animasi halaman Portfolio
+   ========================================================= */
+
+/* ---------- Hero: teks masuk bergantian ---------- */
+.pf-anim {
+  animation: pfIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 120ms + 100ms);
+}
+
+@keyframes pfIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gradient di judul bergerak pelan */
+.pf-hero .text-gradient {
+  background-image: linear-gradient(100deg, #155eef, #5b9cff, #155eef);
+  background-size: 200% auto;
+  animation: pfShimmer 5s linear infinite;
+}
+
+@keyframes pfShimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Cahaya lembut di background hero */
+.pf-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.pf-hero::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: -80px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: rgba(91, 156, 255, 0.18);
+  filter: blur(60px);
+  pointer-events: none;
+  animation: pfGlow 8s ease-in-out infinite;
+}
+
+.pf-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pfGlow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(40px, 30px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ---------- Note: titik berdenyut ---------- */
+.note-dot {
+  animation: pfPing 2s ease-out infinite;
+}
+
+@keyframes pfPing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(39, 189, 132, 0.5);
+  }
+  80%,
+  100% {
+    box-shadow: 0 0 0 9px rgba(39, 189, 132, 0);
+  }
+}
+
+/* ---------- Reveal saat scroll ---------- */
+.pf-reveal {
+  opacity: 0;
+}
+
+.pf-reveal.is-visible {
+  opacity: 1;
+  animation: pfRevealUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes pfRevealUp {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Kartu proyek ---------- */
+.pf-item .project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.pf-item .project-card:hover {
+  transform: translateY(-6px);
+  border-color: #b9d0fa;
+  box-shadow: 0 22px 55px rgba(26, 62, 117, 0.13);
+}
+
+.pf-item .project-open svg,
+.pf-item .icon-button svg,
+.pf-item .button svg {
+  transition: transform 0.25s ease;
+}
+
+.pf-item .project-open:hover svg,
+.pf-item .icon-button:hover svg,
+.pf-item .button:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- CTA bawah ---------- */
+.pf-cta {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pf-cta:hover {
+  border-color: #b9d0fa;
+  box-shadow: 0 14px 40px rgba(26, 62, 117, 0.08);
+}
+
+.pf-cta .button svg {
+  transition: transform 0.25s ease;
+}
+
+.pf-cta .button:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- Hormati preferensi reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .pf-anim,
+  .pf-reveal,
+  .pf-reveal.is-visible,
+  .pf-hero::before,
+  .pf-hero .text-gradient,
+  .note-dot {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}

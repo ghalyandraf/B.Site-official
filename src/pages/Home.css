@@ -1,0 +1,255 @@
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  animation: revealUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Hero: teks masuk bergantian ---------- */
+.hero-anim {
+  animation: heroIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 110ms + 100ms);
+}
+
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Teks gradient bergerak pelan */
+.hero .text-gradient {
+  background-image: linear-gradient(100deg, #155eef, #5b9cff, #155eef);
+  background-size: 200% auto;
+  animation: shimmer 5s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Titik status berdenyut */
+.status-dot {
+  animation: ping 2s ease-out infinite;
+}
+
+@keyframes ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(39, 189, 132, 0.5);
+  }
+  80%,
+  100% {
+    box-shadow: 0 0 0 9px rgba(39, 189, 132, 0);
+  }
+}
+
+/* ---------- Hero visual ---------- */
+.visual-glow {
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* Kartu utama: masuk lalu melayang (rotasi -2deg tetap dijaga) */
+.visual-card {
+  animation: cardIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s backwards,
+    cardFloat 7s ease-in-out 1.2s infinite;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) rotate(-7deg) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+}
+
+@keyframes cardFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+/* Kartu kecil: pop-in lalu melayang dengan ritme beda */
+.floating-card-top {
+  animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s backwards,
+    floatY 5s ease-in-out 1.3s infinite;
+}
+
+.floating-card-bottom {
+  animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.95s backwards,
+    floatY 6s ease-in-out 1.6s infinite reverse;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* Garis-garis di mockup seperti loading */
+.visual-lines i {
+  transform-origin: left center;
+  animation: lineGrow 1s ease-out 0.9s backwards;
+}
+
+.visual-lines i + i {
+  animation-delay: 1.05s;
+}
+
+@keyframes lineGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Tombol mockup berdenyut halus */
+.visual-cta {
+  animation: ctaPulse 2.8s ease-in-out 2s infinite;
+}
+
+@keyframes ctaPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(21, 94, 239, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(21, 94, 239, 0);
+  }
+}
+
+/* ---------- Interaksi hover ---------- */
+.button svg {
+  transition: transform 0.25s ease;
+}
+
+.button:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.button-secondary:hover svg {
+  transform: translateX(3px);
+}
+
+.text-link svg {
+  transition: transform 0.25s ease;
+}
+
+.text-link:hover svg {
+  transform: translateX(4px);
+}
+
+.service-icon {
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  transform: rotate(-8deg) scale(1.1);
+  color: #fff;
+  background: var(--blue);
+}
+
+.service-number {
+  transition: color 0.3s ease;
+}
+
+.service-card:hover .service-number {
+  color: var(--blue);
+}
+
+.trust-inner span {
+  transition: color 0.25s ease;
+}
+
+.trust-inner span:hover {
+  color: var(--blue);
+}
+
+/* ---------- CTA bawah: cahaya bergerak ---------- */
+.home-cta {
+  background-size: 140% 140%, 100% 100%;
+  animation: ctaGlow 9s ease-in-out infinite alternate;
+}
+
+@keyframes ctaGlow {
+  from {
+    background-position: 100% 0%, 0 0;
+  }
+  to {
+    background-position: 60% 40%, 0 0;
+  }
+}
+
+/* ---------- Hormati preferensi reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible,
+  .hero-anim,
+  .visual-card,
+  .floating-card,
+  .visual-glow,
+  .visual-lines i,
+  .visual-cta,
+  .status-dot,
+  .home-cta,
+  .hero .text-gradient {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
