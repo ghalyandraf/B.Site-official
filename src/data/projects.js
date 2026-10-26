@@ -27,4 +27,13 @@ export const projects = [
     url: "https://pilarsistem.my.id/",
     tag: "Information System",
   },
+  {
+    id: 4,
+    name: "Startup Website",
+    category: "Startup",
+    description:
+      "Contoh website untuk memperkenalkan startup, produk, dan layanan.",
+    url: "https://diatas-kertas-delta.vercel.app/",
+    tag: "Startup",
+  },
 ];
