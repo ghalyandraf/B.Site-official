@@ -32,13 +32,14 @@
 .nb-inner {
   width: 100%;
   max-width: 1200px;
-  height: var(--nb-h);
+  min-height: var(--nb-h);
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
 /* ---------- Brand ---------- */
@@ -239,10 +240,29 @@
   display: none;
 }
 
+@media (max-width: 1100px) {
+  .nb-inner {
+    gap: 12px;
+  }
+
+  .nb-links {
+    gap: 2px;
+  }
+
+  .nb-link {
+    padding: 10px 12px;
+  }
+}
+
 /* ---------- Tablet kecil & mobile ---------- */
 @media (max-width: 960px) {
   .nb-inner {
     padding: 0 18px;
+    gap: 12px;
+  }
+
+  .nb-brand {
+    min-width: 0;
   }
 
   .nb-toggle {

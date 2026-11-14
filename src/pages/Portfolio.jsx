@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
 import PortfolioPreview from "../components/PortfolioPreview";
-import { useLanguage } from "../context/LanguageContext";
 import "./Portfolio.css";
 
-/* Muncul halus saat elemen masuk layar */
 function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest }) {
   const ref = useRef(null);
   const [shown, setShown] = useState(false);
@@ -47,22 +45,20 @@ function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest 
 }
 
 export default function Portfolio() {
-  const { t } = useLanguage();
-
   return (
     <>
       <section className="page-hero page-hero-compact pf-hero">
         <div className="container page-hero-inner">
           <span className="eyebrow pf-anim" style={{ "--i": 0 }}>
-            {t("portfolio.eyebrow")}
+            PORTOFOLIO KAMI
           </span>
           <h1 className="pf-anim" style={{ "--i": 1 }}>
-            {t("portfolio.h1a")}
+            Karya yang mewujudkan
             <br />
-            <span className="text-gradient">{t("portfolio.h1b")}</span>
+            <span className="text-gradient">ide jadi nyata.</span>
           </h1>
           <p className="pf-anim" style={{ "--i": 2 }}>
-            {t("portfolio.hero.desc")}
+            Lihat preview website langsung dan buka versi aslinya untuk menjelajahi website secara lengkap.
           </p>
         </div>
       </section>
@@ -71,7 +67,7 @@ export default function Portfolio() {
         <div className="container">
           <div className="portfolio-note pf-note pf-anim" style={{ "--i": 3 }}>
             <span className="note-dot" />
-            <p>{t("portfolio.note")}</p>
+            <p>Beberapa website membatasi tampilan melalui iframe. Gunakan tombol "Buka Website" jika preview tidak tersedia.</p>
           </div>
 
           <div className="portfolio-grid">
@@ -88,16 +84,16 @@ export default function Portfolio() {
 
           <Reveal className="portfolio-bottom-cta pf-cta">
             <div>
-              <h2>{t("portfolio.cta.title")}</h2>
-              <p>{t("portfolio.cta.desc")}</p>
+              <h2>Punya project yang ingin dibuat?</h2>
+              <p>Website berikutnya bisa menjadi karya yang kita bangun bersama.</p>
             </div>
             <Link to="/contact" className="button button-primary">
-              {t("portfolio.cta.button")} <ArrowUpRight size={18} />
+              Mulai Project <ArrowUpRight size={18} />
             </Link>
           </Reveal>
 
           <Reveal as="p" className="portfolio-disclaimer" delay={100}>
-            {t("portfolio.disclaimer")}
+            Data proyek pada versi demo masih menggunakan website contoh. Ganti URL dan deskripsinya dengan proyek asli sebelum dipublikasikan.
           </Reveal>
         </div>
       </section>

@@ -7,12 +7,10 @@ import {
   Clock3,
   CheckCircle2,
 } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
 import "./Contact.css";
 
 const whatsappNumber = "628872235587";
 
-/* Kode internal -> teks Indonesia untuk pesan WhatsApp (yang baca penjual) */
 const SERVICE_OPTIONS = [
   { id: "company", wa: "Company Profile" },
   { id: "landing", wa: "Landing Page" },
@@ -31,7 +29,6 @@ const BUDGET_OPTIONS = [
   { id: "b4", key: "b4", wa: "Di atas Rp3.000.000" },
 ];
 
-/* Muncul halus saat elemen masuk layar */
 function Reveal({
   as: Tag = "div",
   variant = "up",
@@ -81,8 +78,6 @@ function Reveal({
 }
 
 export default function Contact() {
-  const { t } = useLanguage();
-
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -104,7 +99,6 @@ export default function Contact() {
       BUDGET_OPTIONS.find((b) => b.id === form.budget)?.wa ||
       "Belum ditentukan";
 
-    /* Pesan WhatsApp sengaja tetap Bahasa Indonesia */
     const message = [
       "Halo B.Site! Saya ingin konsultasi project website.",
       "",
@@ -127,15 +121,15 @@ export default function Contact() {
       <section className="page-hero page-hero-compact ct-hero">
         <div className="container page-hero-inner">
           <span className="eyebrow ct-anim" style={{ "--i": 0 }}>
-            {t("contact.eyebrow")}
+            HUBUNGI KAMI
           </span>
           <h1 className="ct-anim" style={{ "--i": 1 }}>
-            {t("contact.h1a")}
+            Yuk bangun sesuatu
             <br />
-            <span className="text-gradient">{t("contact.h1b")}</span>
+            <span className="text-gradient">yang bermakna.</span>
           </h1>
           <p className="ct-anim" style={{ "--i": 2 }}>
-            {t("contact.hero.desc")}
+            Punya ide website atau masih bingung mulai dari mana? Ceritakan kebutuhan kamu, dan kita diskusikan bersama.
           </p>
         </div>
       </section>
@@ -143,11 +137,9 @@ export default function Contact() {
       <section className="section contact-page">
         <div className="container contact-layout">
           <Reveal as="aside" variant="left" className="contact-info">
-            <span className="eyebrow eyebrow-light">
-              {t("contact.info.eyebrow")}
-            </span>
-            <h2>{t("contact.info.title")}</h2>
-            <p>{t("contact.info.desc")}</p>
+            <span className="eyebrow eyebrow-light">MARI TERHUBUNG</span>
+            <h2>Ceritakan ide besar kamu berikutnya.</h2>
+            <p>Isi formulir di samping. Informasi yang kamu masukkan akan disusun menjadi pesan WhatsApp agar lebih mudah dikirim.</p>
 
             <a
               href={`https://wa.me/${whatsappNumber}`}
@@ -159,7 +151,7 @@ export default function Contact() {
                 <MessageCircle size={20} />
               </span>
               <span>
-                <small>{t("contact.whatsapp")}</small>
+                <small>WhatsApp</small>
                 <strong>0887-2235-587</strong>
               </span>
               <ArrowUpRight size={18} />
@@ -170,8 +162,8 @@ export default function Contact() {
                 <Globe size={20} />
               </span>
               <span>
-                <small>{t("contact.focus.label")}</small>
-                <strong>{t("contact.focus.value")}</strong>
+                <small>Fokus kami</small>
+                <strong>Website &amp; Solusi Digital</strong>
               </span>
             </div>
 
@@ -180,33 +172,33 @@ export default function Contact() {
                 <Clock3 size={20} />
               </span>
               <span>
-                <small>{t("contact.inquiry.label")}</small>
-                <strong>{t("contact.inquiry.value")}</strong>
+                <small>Konsultasi project</small>
+                <strong>Dengan janji temu</strong>
               </span>
             </div>
 
             <div className="contact-mini-note">
               <CheckCircle2 size={17} />
-              <span>{t("contact.note")}</span>
+              <span>Diskusi awal untuk memahami kebutuhan project.</span>
             </div>
           </Reveal>
 
           <Reveal variant="right" delay={120} className="contact-form-card">
             <div className="contact-form-heading">
-              <span className="eyebrow">{t("contact.form.eyebrow")}</span>
-              <h2>{t("contact.form.title")}</h2>
-              <p>{t("contact.form.required")}</p>
+              <span className="eyebrow">KONSULTASI PROJECT</span>
+              <h2>Ceritakan apa yang kamu butuhkan.</h2>
+              <p>Kolom bertanda * wajib diisi.</p>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="form-row">
                 <label className="form-field">
-                  {t("contact.field.name")}
+                  Nama lengkap *
                   <input
                     name="name"
                     type="text"
                     autoComplete="name"
-                    placeholder={t("contact.field.namePh")}
+                    placeholder="Nama kamu"
                     value={form.name}
                     onChange={updateField}
                     required
@@ -215,7 +207,7 @@ export default function Contact() {
                 </label>
 
                 <label className="form-field">
-                  {t("contact.field.email")}
+                  Email
                   <input
                     name="email"
                     type="email"
@@ -230,7 +222,7 @@ export default function Contact() {
 
               <div className="form-row">
                 <label className="form-field">
-                  {t("contact.field.service")}
+                  Layanan yang dibutuhkan *
                   <select
                     name="service"
                     value={form.service}
@@ -239,14 +231,14 @@ export default function Contact() {
                   >
                     {SERVICE_OPTIONS.map((opt) => (
                       <option key={opt.id} value={opt.id}>
-                        {t(`contact.service.${opt.id}`)}
+                        {opt.wa}
                       </option>
                     ))}
                   </select>
                 </label>
 
                 <label className="form-field">
-                  {t("contact.field.budget")}
+                  Estimasi budget
                   <select
                     name="budget"
                     value={form.budget}
@@ -254,7 +246,7 @@ export default function Contact() {
                   >
                     {BUDGET_OPTIONS.map((opt) => (
                       <option key={opt.key} value={opt.id}>
-                        {t(`contact.budget.${opt.key}`)}
+                        {opt.wa}
                       </option>
                     ))}
                   </select>
@@ -262,11 +254,11 @@ export default function Contact() {
               </div>
 
               <label className="form-field">
-                {t("contact.field.message")}
+                Ceritakan project kamu *
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder={t("contact.field.messagePh")}
+                  placeholder="Contoh: Saya ingin membuat website company profile untuk bisnis..."
                   value={form.message}
                   onChange={updateField}
                   required
@@ -278,10 +270,12 @@ export default function Contact() {
                 type="submit"
                 className="button button-primary button-full ct-submit"
               >
-                {t("contact.submit")} <Send size={17} />
+                Kirim via WhatsApp <Send size={17} />
               </button>
 
-              <p className="form-privacy-note">{t("contact.privacy")}</p>
+              <p className="form-privacy-note">
+                Formulir ini tidak menyimpan data ke server. Saat dikirim, browser akan membuka WhatsApp dengan pesan yang sudah disiapkan.
+              </p>
             </form>
           </Reveal>
         </div>

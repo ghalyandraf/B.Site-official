@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  GraduationCap,
   Info,
   Sparkles,
 } from "lucide-react";
-import { pricing, formatRupiah } from "../data/pricing";
+import { formatRupiah } from "../data/pricing";
 import {
   packages,
   packageTexts,
@@ -20,13 +19,40 @@ import "./Pricing.css";
 
 const whatsappNumber = "628872235587";
 
+const websitePlans = [
+  {
+    name: "Web Single Page",
+    price: 150000,
+    note: "Free hosting",
+    desc: "Website satu halaman untuk landing page atau profil singkat.",
+  },
+  {
+    name: "Web Portofolio Single Page",
+    price: 100000,
+    note: "Free hosting / diskon pelajar & mahasiswa",
+    desc: "Portofolio single page dengan tampilan modern dan fokus personal branding.",
+  },
+  {
+    name: "Web Company Profile",
+    price: 750000,
+    note: "Contoh 5 halaman",
+    desc: "Website company profile untuk bisnis yang membutuhkan presentasi lengkap.",
+  },
+  {
+    name: "Web Custom",
+    price: 0,
+    note: "Konsultasi via WhatsApp",
+    desc: "Untuk kebutuhan khusus, harga bisa disesuaikan dengan admin di 08872235587.",
+  },
+];
+
 /* Pesan WhatsApp sengaja tetap Bahasa Indonesia (yang baca penjual) */
-function makeOrderLink(productName, price, student = false) {
+function makeWebsiteLink(productName, price, extra = "") {
   const message = [
     "Halo B.Site, saya tertarik membeli produk berikut:",
     `Produk: ${productName}`,
-    `Harga: ${formatRupiah(price)}`,
-    `Status: ${student ? "Pelajar/Mahasiswa (diskon 30%)" : "Harga reguler"}`,
+    `Harga: ${price > 0 ? formatRupiah(price) : "Konsultasi"}`,
+    extra ? `Detail: ${extra}` : "",
     "",
     "Boleh minta informasi lebih lanjut?",
   ].join("\n");
@@ -38,7 +64,13 @@ function makeOrderLink(productName, price, student = false) {
 function makePackageLink({ name, total, period, ext, renewal }) {
   const id = packageTexts.id;
   const periodText =
-    period === "year" ? " / tahun" : period === "first" ? " (tahun pertama)" : "";
+    period === "month"
+      ? " / bulan"
+      : period === "year"
+      ? " / tahun"
+      : period === "first"
+      ? " (tahun pertama)"
+      : "";
 
   const lines = [id.waIntro, `${id.waPackage}: ${name}`];
   if (ext) lines.push(`${id.waDomain}: ${ext}`);
@@ -82,7 +114,7 @@ function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest 
   return (
     <Tag
       ref={ref}
-      className={`pr-reveal ${shown ? "is-visible" : ""} ${className}`}
+      className={`reveal ${shown ? "is-visible" : ""} ${className}`}
       style={{ "--d": `${delay}ms` }}
       {...rest}
     >
@@ -91,161 +123,100 @@ function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest 
   );
 }
 
-export default function Pricing() {
-  const { t, lang } = useLanguage();
-  const pt = packageTexts[lang] || packageTexts.id;
+/* Fade-in hero: pakai transition inline supaya tidak ketimpa CSS lain */
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+export default function Pricing() {
+  const [heroIn, setHeroIn] = useState(prefersReducedMotion);
   const [domainExt, setDomainExt] = useState(DEFAULT_DOMAIN);
+
+  useEffect(() => {
+    if (heroIn) return;
+    const t = setTimeout(() => setHeroIn(true), 60);
+    return () => clearTimeout(t);
+  }, [heroIn]);
+
+  const heroFade = (i) => {
+    const ease = "cubic-bezier(0.22, 1, 0.36, 1)";
+    const delay = `${i * 140 + 120}ms`;
+    return {
+      opacity: heroIn ? 1 : 0,
+      transform: heroIn ? "translateY(0)" : "translateY(26px)",
+      filter: heroIn ? "blur(0px)" : "blur(8px)",
+      transition: `opacity 1s ${ease} ${delay}, transform 1s ${ease} ${delay}, filter 1s ${ease} ${delay}`,
+    };
+  };
   const domain =
     domainExtensions.find((d) => d.ext === domainExt) || domainExtensions[0];
 
-  const product = pricing[0];
-  const studentPrice = Math.round(
-    product.originalPrice * (1 - product.studentDiscount / 100)
-  );
-
-  const studentFeatures = [
-    "pricing.student.f1",
-    "pricing.student.f2",
-    "pricing.student.f3",
-    "pricing.student.f4",
-  ];
+  const pricingText = {
+    eyebrow: "DAFTAR HARGA",
+    h1a: "Harga simpel.",
+    h1b: "Peluang nyata.",
+    heroDesc:
+      "Pilih solusi website yang sesuai kebutuhan. Kami menyiapkan paket hosting, website, dan domain dengan harga yang jelas dan mudah dipahami.",
+    packageEyebrow: "PAKET LAYANAN",
+    packageTitle: "Pilih paket yang pas.",
+    packageDesc:
+      "Mau website lengkap, website saja, atau hosting dan domain saja? Harga domain menyesuaikan ekstensi yang kamu pilih.",
+    domainTitle: "Pilih ekstensi domain",
+    domainHint: "Harga domain per tahun",
+    docNote:
+      "Ekstensi ini biasanya butuh dokumen identitas atau legalitas untuk pendaftaran.",
+    breakdownTitle: "Rincian harga",
+    web: "Website",
+    hosting: "Hosting",
+    domain: "Domain",
+    renewLabel: "Perpanjangan tahun berikutnya",
+    note: "Harga di atas dapat berubah sesuai kebutuhan, ekstensi domain, dan masa aktif layanan.",
+    websiteEyebrow: "HARGA WEBSITE",
+    websiteTitle: "Paket website yang siap dipilih.",
+    websiteDesc:
+      "Mulai dari halaman tunggal, portofolio, company profile, hingga kebutuhan custom sesuai skala projek Anda.",
+    websitePeriod: "/ project",
+    customTitle: "Butuh website custom?",
+    customDesc:
+      "Untuk company profile, landing page, atau kebutuhan khusus, kami siap membantu menyesuaikan kebutuhan dan budget Anda.",
+    customLink: "Minta penawaran",
+  };
 
   return (
     <>
       <section className="page-hero page-hero-compact pr-hero">
         <div className="container page-hero-inner">
-          <span className="eyebrow pr-anim" style={{ "--i": 0 }}>
-            {t("pricing.eyebrow")}
+          <span className="eyebrow" style={heroFade(0)}>
+            {pricingText.eyebrow}
           </span>
-          <h1 className="pr-anim" style={{ "--i": 1 }}>
-            {t("pricing.h1a")}
+          <h1 style={heroFade(1)}>
+            {pricingText.h1a}
             <br />
-            <span className="text-gradient">{t("pricing.h1b")}</span>
+            <span className="text-gradient">{pricingText.h1b}</span>
           </h1>
-          <p className="pr-anim" style={{ "--i": 2 }}>
-            {t("pricing.hero.desc")}
-          </p>
+          <p style={heroFade(2)}>{pricingText.heroDesc}</p>
         </div>
       </section>
 
       <section className="section pricing-page">
         <div className="container">
-          <Reveal className="pricing-intro">
-            <div>
-              <span className="eyebrow">{t("pricing.intro.eyebrow")}</span>
-              <h2>{t("pricing.intro.title")}</h2>
-              <p>{t("pricing.intro.desc")}</p>
-            </div>
-            <div className="pricing-intro-icon pr-intro-icon">
-              <Sparkles size={31} />
-            </div>
-          </Reveal>
-
-          <div className="pricing-grid">
-            <Reveal as="article" className="price-card pr-card">
-              <span className="price-label">{product.label}</span>
-              <h3>{product.name}</h3>
-              <p className="price-description">{product.description}</p>
-
-              <div className="price-main">
-                <strong>{formatRupiah(product.originalPrice)}</strong>
-                <span className="price-period">{t("pricing.perTemplate")}</span>
-              </div>
-
-              <div className="price-divider" />
-
-              <p className="features-title">{t("pricing.features.title")}</p>
-              <ul className="feature-list">
-                {product.features.map((feature) => (
-                  <li key={feature}>
-                    <Check size={17} /> {feature}
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href={makeOrderLink(product.name, product.originalPrice)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button button-secondary button-full"
-              >
-                {t("pricing.regular.button")} <ArrowRight size={17} />
-              </a>
-            </Reveal>
-
-            <Reveal
-              as="article"
-              className="price-card student-price-card pr-card"
-              delay={140}
-            >
-              <div className="student-ribbon">
-                <GraduationCap size={16} /> {t("pricing.student.ribbon")}
-              </div>
-
-              <span className="price-label">{t("pricing.student.label")}</span>
-              <h3>{t("pricing.student.title")}</h3>
-              <p className="price-description">{t("pricing.student.desc")}</p>
-
-              <div className="discount-badge pr-badge">
-                <Sparkles size={15} /> {t("pricing.save")}{" "}
-                {product.studentDiscount}%
-              </div>
-
-              <div className="price-main">
-                <span className="price-original">
-                  {formatRupiah(product.originalPrice)}
-                </span>
-                <strong>{formatRupiah(studentPrice)}</strong>
-                <span className="price-period">{t("pricing.perTemplate")}</span>
-              </div>
-
-              <div className="price-divider" />
-
-              <p className="features-title">
-                {t("pricing.student.featuresTitle")}
-              </p>
-              <ul className="feature-list">
-                {studentFeatures.map((key) => (
-                  <li key={key}>
-                    <Check size={17} /> {t(key)}
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href={makeOrderLink(product.name, studentPrice, true)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button button-primary button-full"
-              >
-                {t("pricing.student.button")} <ArrowUpRight size={17} />
-              </a>
-
-              <p className="student-disclaimer">
-                {t("pricing.student.disclaimer")}
-              </p>
-            </Reveal>
-          </div>
-
-          {/* ---------- Paket layanan ---------- */}
           <Reveal className="pr-packages-heading">
-            <span className="eyebrow">{pt.eyebrow}</span>
-            <h2>{pt.title}</h2>
-            <p>{pt.desc}</p>
+            <span className="eyebrow">{pricingText.packageEyebrow}</span>
+            <h2>{pricingText.packageTitle}</h2>
+            <p>{pricingText.packageDesc}</p>
           </Reveal>
 
-          {/* Pilihan ekstensi domain */}
           <Reveal className="pr-domain-picker">
             <div className="pr-domain-head">
-              <strong>{pt.domainTitle}</strong>
-              <span>{pt.domainHint}</span>
+              <strong>{pricingText.domainTitle}</strong>
+              <span>{pricingText.domainHint}</span>
             </div>
 
             <div
               className="pr-domain-options"
               role="group"
-              aria-label={pt.domainTitle}
+              aria-label={pricingText.domainTitle}
             >
               {domainExtensions.map((d) => (
                 <button
@@ -265,15 +236,14 @@ export default function Pricing() {
 
             {domain.needsDoc && (
               <p className="pr-domain-doc">
-                <Info size={15} /> {pt.docNote}
+                <Info size={15} /> {pricingText.docNote}
               </p>
             )}
           </Reveal>
 
           <div className="pr-packages-grid">
             {packages.map((pkg, index) => {
-              const text = pkg[`${lang}_text`] || pkg.id_text;
-
+              const text = pkg.id_text;
               const domainCost = pkg.withDomain ? domain.price : 0;
               const total = pkg.webPrice + pkg.hostingPrice + domainCost;
               const renewalTotal = pkg.renewal
@@ -282,21 +252,23 @@ export default function Pricing() {
 
               const rows = [];
               if (pkg.webPrice > 0)
-                rows.push({ label: pt.web, amount: pkg.webPrice });
+                rows.push({ label: pricingText.web, amount: pkg.webPrice });
               if (pkg.hostingPrice > 0)
-                rows.push({ label: pt.hosting, amount: pkg.hostingPrice });
+                rows.push({ label: pricingText.hosting, amount: pkg.hostingPrice });
               if (pkg.withDomain)
                 rows.push({
-                  label: `${pt.domain} ${domain.ext}`,
+                  label: `${pricingText.domain} ${domain.ext}`,
                   amount: domain.price,
                 });
 
               const periodLabel =
-                pkg.period === "year"
-                  ? pt.year
+                pkg.period === "month"
+                  ? "/ bulan"
+                  : pkg.period === "year"
+                  ? "/ tahun"
                   : pkg.period === "first"
-                  ? pt.first
-                  : pt.once;
+                  ? "/ tahun pertama"
+                  : "/ project";
 
               return (
                 <Reveal
@@ -317,10 +289,7 @@ export default function Pricing() {
                   <p className="price-description">{text.desc}</p>
 
                   <div className="price-main">
-                    <strong
-                      key={`${pkg.id}-${total}`}
-                      className="pr-price-pop"
-                    >
+                    <strong key={`${pkg.id}-${total}`} className="pr-price-pop">
                       {formatRupiah(total)}
                     </strong>
                     <span className="price-period">{periodLabel}</span>
@@ -328,7 +297,7 @@ export default function Pricing() {
 
                   {rows.length > 1 && (
                     <div className="pr-breakdown">
-                      <p className="pr-breakdown-title">{pt.breakdownTitle}</p>
+                      <p className="pr-breakdown-title">{pricingText.breakdownTitle}</p>
                       {rows.map((row) => (
                         <div className="pr-breakdown-row" key={row.label}>
                           <span>{row.label}</span>
@@ -337,7 +306,7 @@ export default function Pricing() {
                       ))}
                       {pkg.renewal && (
                         <div className="pr-breakdown-row pr-breakdown-renew">
-                          <span>{pt.renewLabel}</span>
+                          <span>{pricingText.renewLabel}</span>
                           <span>{formatRupiah(renewalTotal)}</span>
                         </div>
                       )}
@@ -380,17 +349,63 @@ export default function Pricing() {
             })}
           </div>
 
+          <Reveal className="pr-packages-heading">
+            <span className="eyebrow">{pricingText.websiteEyebrow}</span>
+            <h2>{pricingText.websiteTitle}</h2>
+            <p>{pricingText.websiteDesc}</p>
+          </Reveal>
+
+          <div className="pr-packages-grid">
+            {websitePlans.map((plan, index) => (
+              <Reveal
+                as="article"
+                key={plan.name}
+                delay={index * 120}
+                className="price-card pr-card pr-pkg"
+              >
+                <h3>{plan.name}</h3>
+                <p className="price-description">{plan.desc}</p>
+
+                <div className="price-main">
+                  <strong className="pr-price-pop">
+                    {plan.price > 0 ? formatRupiah(plan.price) : "Konsultasi"}
+                  </strong>
+                  {plan.price > 0 && (
+                    <span className="price-period">{pricingText.websitePeriod}</span>
+                  )}
+                </div>
+
+                <div className="price-divider" />
+                <ul className="feature-list">
+                  <li>
+                    <Check size={17} /> {plan.note}
+                  </li>
+                </ul>
+
+                <a
+                  href={makeWebsiteLink(plan.name, plan.price, plan.note)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="button button-secondary button-full"
+                >
+                  {plan.price > 0 ? "Pesan Sekarang" : "Konsultasi via WhatsApp"}{" "}
+                  <ArrowRight size={17} />
+                </a>
+              </Reveal>
+            ))}
+          </div>
+
           <Reveal as="p" className="pr-packages-note" delay={100}>
-            {pt.note}
+            {pricingText.note}
           </Reveal>
 
           <Reveal className="pricing-bottom-note pr-note">
             <div>
-              <h3>{t("pricing.custom.title")}</h3>
-              <p>{t("pricing.custom.desc")}</p>
+              <h3>{pricingText.customTitle}</h3>
+              <p>{pricingText.customDesc}</p>
             </div>
             <Link to="/contact" className="text-link">
-              {t("pricing.custom.link")} <ArrowRight size={17} />
+              {pricingText.customLink} <ArrowRight size={17} />
             </Link>
           </Reveal>
         </div>

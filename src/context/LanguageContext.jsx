@@ -139,31 +139,15 @@ const translations = {
     "pricing.h1a": "Harga simpel.",
     "pricing.h1b": "Peluang nyata.",
     "pricing.hero.desc":
-      "Pilih solusi website yang sesuai kebutuhan. Harga demo ini bisa disesuaikan dengan produk dan layanan B.Site yang sebenarnya.",
-    "pricing.intro.eyebrow": "PRODUK DIGITAL",
-    "pricing.intro.title": "Mulai dari portofolio.",
-    "pricing.intro.desc":
-      "Website portofolio untuk memperkenalkan diri, menampilkan karya, dan membangun personal branding.",
-    "pricing.perTemplate": "/ template",
-    "pricing.features.title": "Yang kamu dapatkan",
-    "pricing.regular.button": "Pesan Harga Reguler",
-    "pricing.student.ribbon": "PENAWARAN PELAJAR",
-    "pricing.student.label": "Spesial untuk pelajar",
-    "pricing.student.title": "Portofolio Pelajar",
-    "pricing.student.desc":
-      "Tampilkan identitas, pengalaman organisasi, sertifikat, keahlian, dan proyek dalam satu website.",
-    "pricing.save": "Hemat",
-    "pricing.student.featuresTitle": "Semua fitur template, plus",
-    "pricing.student.f1": "Harga spesial pelajar dan mahasiswa",
-    "pricing.student.f2": "Cocok untuk CV digital dan personal branding",
-    "pricing.student.f3": "Bisa disesuaikan dengan kebutuhan",
-    "pricing.student.f4": "Konsultasi awal melalui WhatsApp",
-    "pricing.student.button": "Klaim Diskon Pelajar",
-    "pricing.student.disclaimer":
-      "Status pelajar/mahasiswa dapat diminta untuk diverifikasi saat pemesanan. Harga dan cakupan produk perlu dikonfirmasi sebelum pembayaran.",
+      "Pilih solusi website yang sesuai kebutuhan. Kami menyiapkan paket hosting, website, dan domain dengan harga yang jelas dan mudah dipahami.",
+    "pricing.website.eyebrow": "HARGA WEBSITE",
+    "pricing.website.title": "Paket website yang siap dipilih.",
+    "pricing.website.desc":
+      "Mulai dari halaman tunggal, portofolio, company profile, hingga kebutuhan custom sesuai skala projek Anda.",
+    "pricing.website.period": "/ project",
     "pricing.custom.title": "Butuh website custom?",
     "pricing.custom.desc":
-      "Untuk company profile, landing page, atau kebutuhan khusus, harga dapat disesuaikan dengan ruang lingkup proyek.",
+      "Untuk company profile, landing page, atau kebutuhan khusus, kami siap membantu menyesuaikan kebutuhan dan budget Anda.",
     "pricing.custom.link": "Minta penawaran",
 
     // Contact - hero
@@ -344,31 +328,15 @@ const translations = {
     "pricing.h1a": "Simple pricing.",
     "pricing.h1b": "Real possibilities.",
     "pricing.hero.desc":
-      "Choose the website solution that fits your needs. These demo prices can be adjusted to B.Site's actual products and services.",
-    "pricing.intro.eyebrow": "DIGITAL PRODUCT",
-    "pricing.intro.title": "Start with a portfolio.",
-    "pricing.intro.desc":
-      "A portfolio website to introduce yourself, showcase your work, and build your personal brand.",
-    "pricing.perTemplate": "/ template",
-    "pricing.features.title": "What you get",
-    "pricing.regular.button": "Order at Regular Price",
-    "pricing.student.ribbon": "STUDENT OFFER",
-    "pricing.student.label": "Special for students",
-    "pricing.student.title": "Student Portfolio",
-    "pricing.student.desc":
-      "Showcase your identity, organizational experience, certificates, skills, and projects in a single website.",
-    "pricing.save": "Save",
-    "pricing.student.featuresTitle": "All template features, plus",
-    "pricing.student.f1": "Special price for school and university students",
-    "pricing.student.f2": "Great for a digital CV and personal branding",
-    "pricing.student.f3": "Can be customized to your needs",
-    "pricing.student.f4": "Initial consultation via WhatsApp",
-    "pricing.student.button": "Claim Student Discount",
-    "pricing.student.disclaimer":
-      "Student status may be verified when ordering. Prices and product scope should be confirmed before payment.",
+      "Choose the website solution that fits your needs. We provide clear pricing for hosting, websites, and domains.",
+    "pricing.website.eyebrow": "WEBSITE PRICING",
+    "pricing.website.title": "Website packages ready to choose.",
+    "pricing.website.desc":
+      "From one-page sites, portfolios, company profiles, to custom builds based on your project scale.",
+    "pricing.website.period": "/ project",
     "pricing.custom.title": "Need a custom website?",
     "pricing.custom.desc":
-      "For company profiles, landing pages, or special requirements, pricing can be adjusted to the scope of the project.",
+      "For company profiles, landing pages, or special requirements, we can tailor the solution to your budget and needs.",
     "pricing.custom.link": "Request a quote",
 
     // Contact - hero
@@ -428,14 +396,9 @@ const LanguageContext = createContext(null);
 function getInitialLang() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "id" || saved === "en") return saved;
+    if (saved === "id") return saved;
   } catch {
     /* localStorage tidak tersedia */
-  }
-  if (typeof navigator !== "undefined") {
-    return navigator.language?.toLowerCase().startsWith("id")
-      ? "id"
-      : "en";
   }
   return DEFAULT_LANG;
 }
@@ -453,11 +416,11 @@ export function LanguageProvider({ children }) {
   }, [lang]);
 
   const setLang = useCallback((next) => {
-    if (next === "id" || next === "en") setLangState(next);
+    if (next === "id") setLangState(next);
   }, []);
 
   const toggleLang = useCallback(() => {
-    setLangState((prev) => (prev === "id" ? "en" : "id"));
+    setLangState("id");
   }, []);
 
   const t = useCallback(

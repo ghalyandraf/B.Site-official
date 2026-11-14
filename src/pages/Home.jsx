@@ -9,10 +9,8 @@ import {
   Sparkles,
   CheckCircle2,
 } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
 import "./Home.css";
 
-/* Muncul halus saat elemen masuk layar */
 function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest }) {
   const ref = useRef(null);
   const [shown, setShown] = useState(false);
@@ -53,14 +51,24 @@ function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest 
 }
 
 const services = [
-  { icon: <LayoutTemplate size={23} />, key: "home.service1" },
-  { icon: <Code2 size={23} />, key: "home.service2" },
-  { icon: <Smartphone size={23} />, key: "home.service3" },
+  {
+    icon: <LayoutTemplate size={23} />,
+    title: "Desain Website",
+    desc: "Tampilan website yang profesional, konsisten, dan nyaman digunakan.",
+  },
+  {
+    icon: <Code2 size={23} />,
+    title: "Pengembangan Web",
+    desc: "Website yang dibangun sesuai kebutuhan dan tujuan bisnis kamu.",
+  },
+  {
+    icon: <Smartphone size={23} />,
+    title: "Website Responsif",
+    desc: "Pengalaman yang tetap nyaman di desktop, tablet, dan smartphone.",
+  },
 ];
 
 export default function Home() {
-  const { t } = useLanguage();
-
   return (
     <>
       <section className="hero">
@@ -68,36 +76,36 @@ export default function Home() {
           <div className="hero-copy">
             <div className="hero-badge hero-anim" style={{ "--i": 0 }}>
               <span className="status-dot" />
-              {t("home.badge")}
+              Partner Digital Kamu
             </div>
 
             <h1 className="hero-anim" style={{ "--i": 1 }}>
-              {t("home.h1a")}
+              Kami bangun website
               <br />
-              {t("home.h1b")}
+              yang mewujudkan
               <br />
-              <span className="text-gradient">{t("home.h1c")}</span>
+              <span className="text-gradient">ide kamu.</span>
             </h1>
 
             <p className="hero-description hero-anim" style={{ "--i": 2 }}>
-              {t("home.desc")}
+              B.Site membantu bisnis dan individu membangun kehadiran digital melalui website yang modern, fungsional, dan responsif.
             </p>
 
             <div className="hero-actions hero-anim" style={{ "--i": 3 }}>
               <Link to="/contact" className="button button-primary">
-                {t("home.startProject")} <ArrowUpRight size={18} />
+                Mulai Project <ArrowUpRight size={18} />
               </Link>
               <Link to="/portfolio" className="button button-secondary">
-                {t("home.viewPortfolio")} <ArrowRight size={17} />
+                Lihat Portofolio <ArrowRight size={17} />
               </Link>
             </div>
 
             <div className="hero-points hero-anim" style={{ "--i": 4 }}>
               <span>
-                <CheckCircle2 size={16} /> {t("home.point1")}
+                <CheckCircle2 size={16} /> Desain responsif
               </span>
               <span>
-                <CheckCircle2 size={16} /> {t("home.point2")}
+                <CheckCircle2 size={16} /> Pengembangan modern
               </span>
             </div>
           </div>
@@ -111,7 +119,7 @@ export default function Home() {
                   <span />
                   <span />
                 </div>
-                <span>{t("home.visual.url")}</span>
+                <span>websitekamu.site</span>
               </div>
 
               <div className="visual-content">
@@ -125,13 +133,13 @@ export default function Home() {
                 </div>
 
                 <div className="visual-label">
-                  <Sparkles size={14} /> {t("home.visual.label")}
+                  <Sparkles size={14} /> PENGALAMAN DIGITAL
                 </div>
 
                 <div className="visual-headline">
-                  {t("home.visual.h1")}
+                  Ambil
                   <br />
-                  <span>{t("home.visual.h2")}</span>
+                  <span>langkah berikutnya.</span>
                 </div>
 
                 <div className="visual-lines">
@@ -140,21 +148,21 @@ export default function Home() {
                 </div>
 
                 <div className="visual-cta">
-                  {t("home.visual.cta")} <ArrowRight size={13} />
+                  Jelajahi <ArrowRight size={13} />
                 </div>
 
                 <div className="visual-bottom">
                   <div>
                     <strong>01</strong>
-                    <span>{t("home.visual.step1")}</span>
+                    <span>Desain</span>
                   </div>
                   <div>
                     <strong>02</strong>
-                    <span>{t("home.visual.step2")}</span>
+                    <span>Bangun</span>
                   </div>
                   <div>
                     <strong>03</strong>
-                    <span>{t("home.visual.step3")}</span>
+                    <span>Rilis</span>
                   </div>
                 </div>
               </div>
@@ -165,8 +173,8 @@ export default function Home() {
                 <Code2 size={18} />
               </span>
               <div>
-                <strong>{t("home.float1.title")}</strong>
-                <small>{t("home.float1.sub")}</small>
+                <strong>Kode Bersih</strong>
+                <small>Dibuat dengan tujuan</small>
               </div>
             </div>
 
@@ -175,8 +183,8 @@ export default function Home() {
                 <Smartphone size={18} />
               </span>
               <div>
-                <strong>{t("home.float2.title")}</strong>
-                <small>{t("home.float2.sub")}</small>
+                <strong>100% Responsif</strong>
+                <small>Di semua perangkat</small>
               </div>
             </div>
           </div>
@@ -185,22 +193,22 @@ export default function Home() {
 
       <section className="trust-strip">
         <Reveal className="container trust-inner">
-          <span>{t("home.strip1")}</span>
+          <span>IDE</span>
           <i />
-          <span>{t("home.strip2")}</span>
+          <span>DESAIN</span>
           <i />
-          <span>{t("home.strip3")}</span>
+          <span>PENGEMBANGAN</span>
           <i />
-          <span>{t("home.strip4")}</span>
+          <span>RILIS</span>
         </Reveal>
       </section>
 
       <section className="section">
         <div className="container">
           <Reveal className="section-heading">
-            <span className="eyebrow">{t("home.services.eyebrow")}</span>
-            <h2>{t("home.services.title")}</h2>
-            <p>{t("home.services.desc")}</p>
+            <span className="eyebrow">YANG KAMI KERJAKAN</span>
+            <h2>Semua yang kamu butuhkan untuk go digital.</h2>
+            <p>Dari ide awal sampai website siap digunakan, kami fokus pada pengalaman yang jelas dan bermanfaat.</p>
           </Reveal>
 
           <div className="services-grid">
@@ -208,15 +216,15 @@ export default function Home() {
               <Reveal
                 as="article"
                 className="service-card"
-                key={service.key}
+                key={service.title}
                 delay={index * 120}
               >
                 <span className="service-icon">{service.icon}</span>
                 <span className="service-number">0{index + 1}</span>
-                <h3>{t(`${service.key}.title`)}</h3>
-                <p>{t(`${service.key}.desc`)}</p>
+                <h3>{service.title}</h3>
+                <p>{service.desc}</p>
                 <Link to="/about" className="text-link">
-                  {t("home.learnMore")} <ArrowRight size={16} />
+                  Selengkapnya <ArrowRight size={16} />
                 </Link>
               </Reveal>
             ))}
@@ -228,14 +236,12 @@ export default function Home() {
         <div className="container">
           <Reveal className="home-cta">
             <div>
-              <span className="eyebrow eyebrow-light">
-                {t("home.cta.eyebrow")}
-              </span>
-              <h2>{t("home.cta.title")}</h2>
-              <p>{t("home.cta.desc")}</p>
+              <span className="eyebrow eyebrow-light">PUNYA PROJECT DI KEPALA?</span>
+              <h2>Yuk wujudkan ide kamu jadi nyata.</h2>
+              <p>Ceritakan kebutuhan website kamu. Kita mulai dari sana.</p>
             </div>
             <Link to="/contact" className="button button-white">
-              {t("home.cta.button")} <ArrowUpRight size={18} />
+              Hubungi Kami <ArrowUpRight size={18} />
             </Link>
           </Reveal>
         </div>
