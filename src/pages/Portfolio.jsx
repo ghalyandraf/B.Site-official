@@ -92,9 +92,6 @@ export default function Portfolio() {
             </Link>
           </Reveal>
 
-          <Reveal as="p" className="portfolio-disclaimer" delay={100}>
-            Data proyek pada versi demo masih menggunakan website contoh. Ganti URL dan deskripsinya dengan proyek asli sebelum dipublikasikan.
-          </Reveal>
         </div>
       </section>
     </>
