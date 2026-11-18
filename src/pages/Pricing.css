@@ -1,7 +1,5 @@
 ﻿/* =========================================================
    Halaman Pricing
-   Nama class sama dengan versi sebelumnya, jadi Pricing.jsx
-   tidak perlu diubah.
    ========================================================= */
 
 .pricing-page {
@@ -17,7 +15,7 @@
 }
 
 /* =========================================================
-   Hero: teks masuk bergantian, gradient bergerak, cahaya melayang
+   Hero
    ========================================================= */
 .pr-hero {
   position: relative;
@@ -28,7 +26,6 @@
     linear-gradient(180deg, #f4f8ff 0%, #ffffff 100%);
 }
 
-/* Pola titik halus, memudar ke bawah */
 .pr-hero::before {
   content: "";
   position: absolute;
@@ -38,6 +35,7 @@
   -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
   mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
   pointer-events: none;
+  animation: prHeroFade 1.4s ease-out backwards;
 }
 
 .pr-hero .container {
@@ -65,7 +63,6 @@
   }
 }
 
-/* Cahaya lembut yang melayang pelan di hero */
 .pr-hero::after {
   content: "";
   position: absolute;
@@ -93,30 +90,6 @@
   }
 }
 
-/* Teks hero: fade-in + naik + blur tipis, masuk bergantian */
-.pr-anim {
-  animation: prIn 1s var(--pr-ease) backwards;
-  animation-delay: calc(var(--i, 0) * 140ms + 120ms);
-}
-
-@keyframes prIn {
-  from {
-    opacity: 0;
-    transform: translateY(26px);
-    filter: blur(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-/* Background hero ikut fade-in (pola titik + cahaya) */
-.pr-hero::before {
-  animation: prHeroFade 1.4s ease-out backwards;
-}
-
 @keyframes prHeroFade {
   from {
     opacity: 0;
@@ -128,7 +101,6 @@
 
 /* =========================================================
    Reveal saat scroll
-   (class .pr-reveal dari Pricing.jsx, .reveal ikut didukung)
    ========================================================= */
 .pr-reveal,
 .reveal {
@@ -184,124 +156,6 @@
 }
 
 /* =========================================================
-   Pilih ekstensi domain
-   ========================================================= */
-.pr-domain-picker {
-  max-width: 880px;
-  margin: 0 auto 36px;
-  padding: 24px;
-  border: 1px solid var(--pr-line);
-  border-radius: var(--pr-radius);
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(15, 42, 94, 0.04),
-    0 18px 40px -24px rgba(15, 42, 94, 0.18);
-}
-
-.pr-domain-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 18px;
-  text-align: center;
-}
-
-.pr-domain-head strong {
-  color: var(--pr-ink);
-  font-size: 15px;
-  letter-spacing: -0.01em;
-}
-
-.pr-domain-head span {
-  color: var(--pr-faint);
-  font-size: 12px;
-}
-
-.pr-domain-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 150px));
-  justify-content: center;
-  gap: 10px;
-}
-
-.pr-domain-chip {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  padding: 14px 8px 12px;
-  border: 1.5px solid var(--pr-line);
-  border-radius: 14px;
-  color: var(--pr-ink);
-  background: var(--pr-soft);
-  cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease,
-    background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-}
-
-.pr-domain-chip:hover {
-  transform: translateY(-2px);
-  border-color: #a9c4f7;
-  background: #fff;
-}
-
-.pr-domain-chip:active {
-  transform: translateY(0) scale(0.97);
-}
-
-.pr-domain-chip:focus-visible {
-  outline: 2px solid var(--pr-blue);
-  outline-offset: 3px;
-}
-
-.pr-chip-ext {
-  font-family: "Manrope", sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.pr-chip-price {
-  color: var(--pr-faint);
-  font-size: 11px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.pr-domain-chip.is-active {
-  color: #fff;
-  border-color: var(--pr-blue);
-  background: var(--pr-blue);
-  box-shadow: 0 12px 26px -8px rgba(21, 94, 239, 0.55);
-}
-
-.pr-domain-chip.is-active .pr-chip-price {
-  color: #d7e4ff;
-}
-
-.pr-domain-doc {
-  display: flex;
-  align-items: flex-start;
-  max-width: 560px;
-  margin-inline: auto;
-  gap: 8px;
-  margin: 16px auto 0;
-  padding: 10px 12px;
-  border: 1px solid #f3dfb0;
-  border-radius: 10px;
-  color: #7a4f00;
-  background: #fff8e6;
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.pr-domain-doc svg {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-/* =========================================================
    Grid + kartu harga
    ========================================================= */
 .pr-packages-grid {
@@ -309,6 +163,13 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
   gap: 24px;
+}
+
+/* Grid 2 kolom (paket hosting) */
+.pr-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 880px;
+  margin-inline: auto;
 }
 
 .pr-card {
@@ -344,7 +205,6 @@
   line-height: 1.65;
 }
 
-/* Harga: angka besar, rapat, rata */
 .pr-pkg .price-main {
   display: flex;
   align-items: baseline;
@@ -366,7 +226,6 @@
   font-weight: 600;
 }
 
-/* Animasi muncul saat harga berubah (respon ke klik user) */
 .pr-price-pop {
   display: inline-block;
   animation: prPricePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -383,49 +242,43 @@
   }
 }
 
-/* ---------- Rincian harga (gaya struk) ---------- */
-.pr-breakdown {
-  margin-top: 20px;
-  padding: 14px 16px;
-  border: 1px solid var(--pr-line);
+/* ---------- Kotak harga bayar 1 tahun (hosting) ---------- */
+.pr-yearly {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin-top: 18px;
+  padding: 12px 16px;
+  border: 1px dashed #cdd9ee;
   border-radius: 14px;
   background: var(--pr-soft);
 }
 
-.pr-breakdown-title {
-  margin: 0 0 8px;
+.pr-yearly small {
+  display: block;
   color: var(--pr-faint);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
 
-.pr-breakdown-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 5px 0;
-  color: var(--pr-mute);
-  font-size: 13px;
-}
-
-.pr-breakdown-row span:last-child {
+.pr-yearly strong {
   color: var(--pr-ink);
-  font-weight: 700;
-  white-space: nowrap;
+  font-size: 18px;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
-.pr-breakdown-renew {
-  margin-top: 8px;
-  padding-top: 10px;
-  border-top: 1px dashed #cdd9ee;
-  color: var(--pr-blue);
-  font-weight: 600;
-}
-
-.pr-breakdown-renew span:last-child {
-  color: var(--pr-blue);
+.pr-save {
+  padding: 5px 11px;
+  border-radius: 999px;
+  color: #17765a;
+  background: rgba(29, 155, 111, 0.12);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 /* ---------- Daftar fitur ---------- */
@@ -450,19 +303,12 @@
   color: #34445f;
   font-size: 14px;
   line-height: 1.55;
-}
-
-.pr-pkg .feature-list li {
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .pr-pkg .feature-list li:hover {
   transform: translateX(4px);
   color: var(--pr-ink);
-}
-
-.pricing-page .price-card.pr-pkg-featured .feature-list li:hover {
-  color: #fff;
 }
 
 .pr-pkg .feature-list li svg {
@@ -489,163 +335,32 @@
   transform: scale(0.98);
 }
 
-.pr-pkg .button-primary:hover svg {
-  transform: translate(2px, -2px);
-}
-
 .pr-pkg .button-secondary:hover svg {
   transform: translateX(4px);
 }
 
 /* =========================================================
-   Kartu unggulan: satu-satunya kartu gelap, jadi pusat perhatian
+   Tag promo (pelajar / mahasiswa) + kartu paket website
    ========================================================= */
-.pricing-page .price-card.pr-pkg-featured {
-  border-color: transparent;
-  color: #fff;
-  background-color: #0a1c42 !important;
-  background-image:
-    radial-gradient(90% 60% at 100% 0%, rgba(91, 156, 255, 0.35), transparent 65%),
-    linear-gradient(165deg, #12306b 0%, #0a1c42 100%) !important;
-  box-shadow: 0 30px 70px -30px rgba(10, 28, 66, 0.7),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
-}
-
-.pricing-page .price-card.pr-pkg-featured:hover {
-  border-color: transparent;
-  box-shadow: 0 36px 80px -30px rgba(10, 28, 66, 0.8),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-}
-
-.pricing-page .price-card.pr-pkg-featured h3 {
+.pr-web h3 {
   padding-top: 22px;
-  color: #fff;
 }
 
-.pricing-page .price-card.pr-pkg-featured .price-description {
-  color: #b9c9e8;
-}
-
-.pricing-page .price-card.pr-pkg-featured .price-main strong {
-  color: #fff;
-}
-
-.pricing-page .price-card.pr-pkg-featured .price-period {
-  color: #9db5e0;
-}
-
-.pricing-page .price-card.pr-pkg-featured .pr-breakdown {
-  border-color: rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.pricing-page .price-card.pr-pkg-featured .pr-breakdown-title {
-  color: #9db5e0;
-}
-
-.pricing-page .price-card.pr-pkg-featured .pr-breakdown-row {
-  color: #c4d3ee;
-}
-
-.pricing-page .price-card.pr-pkg-featured .pr-breakdown-row span:last-child {
-  color: #fff;
-}
-
-.pricing-page .price-card.pr-pkg-featured .pr-breakdown-renew {
-  border-top-color: rgba(255, 255, 255, 0.2);
-  color: #8fbaff;
-}
-
-.pricing-page .price-card.pr-pkg-featured .pr-breakdown-renew span:last-child {
-  color: #8fbaff;
-}
-
-.pricing-page .price-card.pr-pkg-featured .price-divider {
-  background: rgba(255, 255, 255, 0.14);
-}
-
-.pricing-page .price-card.pr-pkg-featured .feature-list li {
-  color: #dce7fb;
-}
-
-.pricing-page .price-card.pr-pkg-featured .feature-list li svg {
-  color: #7fb0ff;
-  background: rgba(127, 176, 255, 0.16);
-}
-
-.pricing-page .price-card.pr-pkg-featured .button-primary {
-  color: var(--pr-ink);
-  background: #fff;
-  border-color: #fff;
-}
-
-.pricing-page .price-card.pr-pkg-featured .button-primary:hover {
-  background: #eaf1ff;
-  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.5);
-}
-
-/* Chip aktif: cincin berdenyut pelan */
-.pr-domain-chip.is-active {
-  animation: prPing 2.4s ease-out infinite;
-}
-
-@keyframes prPing {
-  0% {
-    box-shadow: 0 12px 26px -8px rgba(21, 94, 239, 0.55),
-      0 0 0 0 rgba(21, 94, 239, 0.4);
-  }
-  80%,
-  100% {
-    box-shadow: 0 12px 26px -8px rgba(21, 94, 239, 0.55),
-      0 0 0 9px rgba(21, 94, 239, 0);
-  }
-}
-
-/* Label "paling lengkap" */
-.pr-pop {
+.pr-tag {
   position: absolute;
   top: 0;
   left: 30px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  overflow: hidden;
   padding: 8px 14px;
   border-radius: 0 0 12px 12px;
   color: #fff;
-  background: linear-gradient(135deg, #2f7bff, #155eef);
+  background: linear-gradient(135deg, #2bb783, #1d9b6f);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.02em;
-  box-shadow: 0 8px 20px -6px rgba(21, 94, 239, 0.7);
-}
-
-/* Kilau lewat sekali-sekali, hanya di label ini */
-.pr-pop::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(
-    100deg,
-    transparent,
-    rgba(255, 255, 255, 0.45),
-    transparent
-  );
-  transform: skewX(-20deg);
-  animation: prShine 4.5s ease-in-out 1.4s infinite;
-}
-
-@keyframes prShine {
-  0% {
-    left: -60%;
-  }
-  45%,
-  100% {
-    left: 140%;
-  }
+  box-shadow: 0 8px 20px -6px rgba(29, 155, 111, 0.7);
 }
 
 /* =========================================================
@@ -697,7 +412,8 @@
    Responsive
    ========================================================= */
 @media (max-width: 960px) {
-  .pr-packages-grid {
+  .pr-packages-grid,
+  .pr-grid-2 {
     grid-template-columns: 1fr;
     max-width: 520px;
     margin-inline: auto;
@@ -706,7 +422,6 @@
   .pr-pkg .price-description {
     min-height: 0;
   }
-
 }
 
 @media (max-width: 760px) {
@@ -714,22 +429,12 @@
     margin-top: 52px;
   }
 
-  .pr-domain-picker {
-    padding: 18px 16px;
-  }
-
   .pr-pkg {
     padding: 28px 22px 24px;
   }
 
-  .pr-pop {
+  .pr-tag {
     left: 22px;
-  }
-}
-
-@media (max-width: 420px) {
-  .pr-domain-options {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 }
 
@@ -737,7 +442,6 @@
    Hormati preferensi reduced motion
    ========================================================= */
 @media (prefers-reduced-motion: reduce) {
-  .pr-anim,
   .pr-reveal,
   .pr-reveal.is-visible,
   .reveal,
@@ -745,16 +449,13 @@
   .pr-hero::before,
   .pr-hero::after,
   .pr-hero .text-gradient,
-  .pr-domain-chip.is-active,
-  .pr-pop::after,
   .pr-price-pop {
     animation: none !important;
     opacity: 1 !important;
     filter: none !important;
   }
 
-  .pr-card,
-  .pr-domain-chip {
+  .pr-card {
     transition: none;
   }
 }

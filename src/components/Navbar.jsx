@@ -62,59 +62,57 @@ export default function Navbar() {
   }, []);
 
   return (
-    <>
-      <header className={`nb-header ${scrolled ? "is-scrolled" : ""}`}>
-        <nav className="nb-inner" aria-label={navText.mainNav}>
-          <Link to="/" className="nb-brand" onClick={closeMenu}>
-            <img src="/favicon.png" alt="B.Site Logo" className="nb-logo" />
-            <span className="nb-brand-text">
-              <span className="nb-brand-name">B.Site</span>
-              <small className="nb-brand-tag">{navText.tagline}</small>
-            </span>
-          </Link>
+    <header className={`nb-header ${scrolled ? "is-scrolled" : ""}`}>
+      <nav className="nb-inner" aria-label={navText.mainNav}>
+        <Link to="/" className="nb-brand" onClick={closeMenu}>
+          <img src="/favicon.png" alt="B.Site Logo" className="nb-logo" />
+          <span className="nb-brand-text">
+            <span className="nb-brand-name">B.Site</span>
+            <small className="nb-brand-tag">{navText.tagline}</small>
+          </span>
+        </Link>
 
-          <div id="nb-menu" className={`nb-menu ${open ? "is-open" : ""}`}>
-            <div className="nb-links">
-              {links.map((link) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  end={link.end}
-                  onClick={closeMenu}
-                  className={({ isActive }) =>
-                    `nb-link ${isActive ? "is-active" : ""}`
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              ))}
-            </div>
-
-            <div className="nb-actions">
-              <Link to="/contact" className="nb-cta" onClick={closeMenu}>
-                {navText.cta} <ArrowUpRight size={17} />
-              </Link>
-            </div>
+        <div id="nb-menu" className={`nb-menu ${open ? "is-open" : ""}`}>
+          <div className="nb-links">
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.end}
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  `nb-link ${isActive ? "is-active" : ""}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </div>
 
-          <button
-            type="button"
-            className="nb-toggle"
-            aria-label={open ? navText.closeMenu : navText.openMenu}
-            aria-expanded={open}
-            aria-controls="nb-menu"
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </nav>
-      </header>
+          <div className="nb-actions">
+            <Link to="/contact" className="nb-cta" onClick={closeMenu}>
+              {navText.cta} <ArrowUpRight size={17} />
+            </Link>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className="nb-toggle"
+          aria-label={open ? navText.closeMenu : navText.openMenu}
+          aria-expanded={open}
+          aria-controls="nb-menu"
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </nav>
 
       <div
         className={`nb-overlay ${open ? "is-open" : ""}`}
         onClick={closeMenu}
         aria-hidden="true"
       />
-    </>
+    </header>
   );
 }

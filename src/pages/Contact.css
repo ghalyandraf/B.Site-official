@@ -1,28 +1,21 @@
 /* =========================================================
    Animasi halaman Contact
+   (fade-in hero lewat inline style di Contact.jsx)
    ========================================================= */
 
-/* ---------- Hero: teks masuk bergantian ---------- */
-.ct-anim {
-  animation: ctIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  animation-delay: calc(var(--i, 0) * 120ms + 100ms);
+/* Biar form nggak ketutup navbar sticky pas di-scroll otomatis dari Pricing */
+#contact-form {
+  scroll-margin-top: 96px;
 }
 
-@keyframes ctIn {
-  from {
-    opacity: 0;
-    transform: translateY(26px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Gradient di judul bergerak pelan */
+/* ---------- Hero ---------- */
 .ct-hero .text-gradient {
   background-image: linear-gradient(100deg, #155eef, #5b9cff, #155eef);
   background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   animation: ctShimmer 5s linear infinite;
 }
 
@@ -32,7 +25,6 @@
   }
 }
 
-/* Cahaya lembut di background hero */
 .ct-hero {
   position: relative;
   overflow: hidden;
@@ -128,7 +120,6 @@
   overflow: hidden;
 }
 
-/* Lingkaran cahaya bergerak di pojok panel */
 .contact-info::after {
   content: "";
   position: absolute;
@@ -159,7 +150,6 @@
   z-index: 1;
 }
 
-/* Kartu kontak: geser sedikit saat hover */
 .ct-link {
   transition: transform 0.25s ease, background 0.25s ease,
     border-color 0.25s ease;
@@ -183,7 +173,6 @@ a.ct-link:hover > svg {
   transform: translate(3px, -3px);
 }
 
-/* Ikon WhatsApp berdenyut */
 .ct-wa-icon {
   animation: ctWa 2.6s ease-in-out infinite;
 }
@@ -198,7 +187,6 @@ a.ct-link:hover > svg {
   }
 }
 
-/* Ikon centang di note berdenyut halus */
 .contact-mini-note svg {
   animation: ctTick 2.8s ease-in-out infinite;
 }
@@ -223,7 +211,6 @@ a.ct-link:hover > svg {
   box-shadow: 0 24px 60px rgba(26, 62, 117, 0.12);
 }
 
-/* Label ikut berwarna biru saat field difokus */
 .form-field {
   transition: color 0.2s ease;
 }
@@ -232,7 +219,124 @@ a.ct-link:hover > svg {
   color: var(--blue);
 }
 
-/* Tombol kirim: pesawat terbang saat hover */
+/* Select yang dinonaktifkan (periode bayar tanpa hosting) */
+.form-field select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Hint di bawah dropdown (promo pelajar / spesifikasi hosting) */
+.ct-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 9px 12px;
+  border: 1px solid rgba(29, 155, 111, 0.28);
+  border-radius: 10px;
+  color: #17765a;
+  background: rgba(29, 155, 111, 0.1);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.55;
+  animation: ctHintIn 0.3s ease;
+}
+
+.ct-hint svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+@keyframes ctHintIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Estimasi budget (otomatis dari pesanan) ---------- */
+.ct-budget {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Kotak total otomatis (terkunci) */
+.ct-budget-auto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1.5px solid #b9d0fa;
+  border-radius: 12px;
+  background: #f6f9ff;
+  animation: ctHintIn 0.3s ease;
+}
+
+.ct-budget-auto strong {
+  color: #155eef;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ct-budget-auto span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #17765a;
+  background: rgba(29, 155, 111, 0.12);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Rincian di bawah kotak total */
+.ct-budget-detail {
+  padding: 10px 14px;
+  border: 1px dashed #cdd9ee;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.ct-budget-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 3px 0;
+  color: #5c6b83;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ct-budget-row span:last-child {
+  color: #0f2a5e;
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.ct-budget-note {
+  margin: 6px 0 0;
+  color: #8a96a9;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.ct-budget > .ct-budget-note {
+  margin-top: 0;
+}
+
+/* Tombol kirim */
 .ct-submit svg {
   transition: transform 0.3s ease;
 }
@@ -247,14 +351,15 @@ a.ct-link:hover > svg {
 
 /* ---------- Hormati preferensi reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .ct-anim,
   .ct-reveal,
   .ct-reveal.is-visible,
   .ct-hero::before,
   .ct-hero .text-gradient,
   .contact-info::after,
   .ct-wa-icon,
-  .contact-mini-note svg {
+  .contact-mini-note svg,
+  .ct-hint,
+  .ct-budget-auto {
     animation: none !important;
     opacity: 1 !important;
   }
