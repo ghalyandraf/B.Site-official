@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, Instagram, MessageCircle } from "lucide-react";
 
 const whatsapp = "https://wa.me/628872235587";
+const instagram = "https://www.instagram.com/b.site.official";
 
 export default function Footer() {
   return (
@@ -10,15 +11,15 @@ export default function Footer() {
         <div className="footer-brand">
           <Link to="/" className="brand">
             <img
-  src="/favicon.png"
-  alt="B.Site Logo"
-  className="brand-logo"
-/>
+              src="/favicon.png"
+              alt="B.Site Logo"
+              className="brand-logo"
+            />
 
-<span className="brand-name">
-  B.Site
-  <small>Digital Solutions</small>
-</span>
+            <span className="brand-name">
+              B.Site
+              <small>Digital Solutions</small>
+            </span>
           </Link>
           <p>
             We turn ideas into digital experiences through thoughtful
@@ -39,11 +40,7 @@ export default function Footer() {
           <a href={whatsapp} target="_blank" rel="noopener noreferrer">
             <MessageCircle size={16} /> WhatsApp
           </a>
-          <a
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={instagram} target="_blank" rel="noopener noreferrer">
             <Instagram size={16} /> Instagram
           </a>
           <Link to="/contact">
